@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { BemComponent, BemProps } from "../bem-component";
+import { BemComponent, IBemProps } from "../../model/bem-component";
 import { MAIN_PAGE_ROUTE } from "../../constants/routes";
 
-export default class PageError extends BemComponent<BemProps> {
+export default class PageError extends BemComponent<IBemProps> {
     render() {
         return (
             <div className={ this.bemCn() }>

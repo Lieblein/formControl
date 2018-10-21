@@ -28,6 +28,6 @@ export abstract class BemComponent<P = {}, S = {}> extends React.Component<P, S>
     }
 }
 
-export interface BemProps {
+export interface IBemProps {
     className?: string;
 }

@@ -6,7 +6,6 @@
     "no-shadowed-variable": false,
     "guard-for-in": false,
     "object-literal-sort-keys": false,
-    "interface-name": false,
     "ordered-imports": false,
     "member-access": [true, "no-public"],
     "no-string-literal": false,
