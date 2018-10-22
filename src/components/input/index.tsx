@@ -6,6 +6,7 @@ import "./input.pcss";
 export interface IInputProps extends IBemProps {
     label?: string;
     formControl: IFormControl;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default class Input extends BemComponent<IInputProps> {
@@ -21,8 +22,9 @@ export default class Input extends BemComponent<IInputProps> {
                 value,
                 error,
                 valid,
-                changed,
+                dirty,
             },
+            onChange,
         } = this.props;
 
         return (
@@ -38,15 +40,16 @@ export default class Input extends BemComponent<IInputProps> {
                 }
                 <input
                     className={ this.bemCn("input", {
-                        error: changed && !valid,
-                        success: changed && valid,
+                        error: dirty && !valid,
+                        success: dirty && valid,
                     }) }
                     name={ name }
                     id={ name }
                     value={ value }
+                    onChange={ onChange }
                 />
                 {
-                    error !== "" && !valid && changed &&
+                    error !== "" && !valid && dirty &&
                         <div className={ this.bemCn("error") }>
                             { error }
                         </div>

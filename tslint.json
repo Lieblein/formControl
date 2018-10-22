@@ -9,6 +9,11 @@
     "ordered-imports": false,
     "member-access": [true, "no-public"],
     "no-string-literal": false,
+    "variable-name": [
+      true,
+      "check-format",
+      "allow-leading-underscore"
+    ],
 
     "jsx-wrap-multiline": false,
     "jsx-boolean-value": false,
