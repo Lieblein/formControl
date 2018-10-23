@@ -1,4 +1,4 @@
-import { IValidator } from "./validator";
+import { IValidator } from "./Validator";
 
 export interface IFormControl<ValueType = string> {
     /** Унимальный ключ поля в пределах формы */
@@ -18,6 +18,9 @@ export interface IFormControl<ValueType = string> {
 
     /** Флаг, покзывающий, что value было изменено хотя бы 1 раз */
     dirty: boolean;
+
+    /** Метод, сбрасывающий изменения поля */
+    reset: () => void;
 }
 
 export class FormControl<ValueType = string> implements IFormControl<ValueType> {
@@ -70,6 +73,11 @@ export class FormControl<ValueType = string> implements IFormControl<ValueType> 
         }
         this._value = value;
         this.checkValue();
+    }
+
+    reset() {
+        this.value = this._defaultValue;
+        this._dirty = false;
     }
 
     private readonly valueCompareFn = function valueCompareFn(a: ValueType, b: ValueType): boolean {

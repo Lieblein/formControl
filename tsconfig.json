@@ -3,7 +3,7 @@
     "outDir": "./build/",
     "module": "es2015",
     "jsx": "react",
-    "target": "es5",
+    "target": "es6",
     "removeComments": false,
     "sourceMap": true,
     "experimentalDecorators": true,

@@ -2,6 +2,7 @@
     --color-default-white: #fff;
     --color-default-blue: #09f;
     --color-light-blue: #0cf;
+    --color-disabled: #ccc;
 }
 
 .button {
@@ -21,5 +22,16 @@
     &:active {
         color: var(--color-default-white);
         background: var(--color-light-blue);
+    }
+
+    &:disabled {
+        background: var(--color-disabled);
+
+        &:hover,
+        &:focus,
+        &:active {
+            background: var(--color-disabled);
+            cursor: not-allowed;
+        }
     }
 }
