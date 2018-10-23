@@ -1,0 +1,25 @@
+:root {
+    --color-default-white: #fff;
+    --color-default-blue: #09f;
+    --color-light-blue: #0cf;
+}
+
+.button {
+    height: 30px;
+    padding: 0 22px;
+    text-align: center;
+    color: var(--color-default-white);
+    background: var(--color-default-blue);
+    border: 0;
+    border-radius: 4px;
+    white-space: nowrap;
+    cursor: pointer;
+    touch-action: manipulation;
+
+    &:hover,
+    &:focus,
+    &:active {
+        color: var(--color-default-white);
+        background: var(--color-light-blue);
+    }
+}

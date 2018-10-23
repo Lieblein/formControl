@@ -2,6 +2,7 @@ import React from "react";
 import { BemComponent, IBemProps } from "../../model/bem-component";
 import { FormControl, RequiredValidator, MinLengthValidator } from "../../model/form";
 import Input from "../input";
+import "../../assets/styles/button.pcss";
 import "./page-main.pcss";
 
 interface IPageMainState {
@@ -45,22 +46,43 @@ export default class PageMain extends BemComponent<IBemProps, IPageMainState> {
         this.setState({ password });
     }
 
+    /* onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        const formControl = this.state[name];
+        formControl.value = value;
+        this.setState({ [name]: formControl });
+    } */
+
+    onSubmit(event: React.FormEvent) {
+        event.preventDefault();
+        alert("submited");
+    }
+
     render() {
         const { login, password } = this.state;
         return (
             <div className={ this.bemCn() }>
-                <Input
-                    className={ this.bemCn("input") }
-                    label="login"
-                    formControl={ login }
-                    onChange={ this.onChangeLogin }
-                />
-                <Input
-                    className={ this.bemCn("input") }
-                    label="password"
-                    formControl={ password }
-                    onChange={ this.onChangePassword }
-                />
+                <form>
+                    <Input
+                        className={ this.bemCn("input") }
+                        label="login"
+                        formControl={ login }
+                        onChange={ this.onChangeLogin }
+                    />
+                    <Input
+                        className={ this.bemCn("input") }
+                        label="password"
+                        formControl={ password }
+                        onChange={ this.onChangePassword }
+                    />
+                    <button
+                        className={ this.bemCn("button") + " button" }
+                        type="submit"
+                        onClick={ this.onSubmit }
+                    >
+                        Submit
+                    </button>
+                </form>
             </div>
         );
     }
