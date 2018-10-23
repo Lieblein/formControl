@@ -1,18 +1,29 @@
 import { IValidator } from "./validator";
 
 export interface IFormControl<ValueType = string> {
+    /** Унимальный ключ поля в пределах формы */
     name: string;
+
+    /** Актуальное значение */
     value: ValueType;
+
+    /** Содеждит сообщение об ошибке или "", если поле валидно */
     error: string;
+
+    /** Флаг, покзывающий, что value заполнено корректно */
     valid: boolean;
+
+    /** Флаг, покзывающий, что value не совпадает с изначальным значением value */
     changed: boolean;
+
+    /** Флаг, покзывающий, что value было изменено хотя бы 1 раз */
     dirty: boolean;
 }
 
 export class FormControl<ValueType = string> implements IFormControl<ValueType> {
     readonly name: string;
-    private readonly defaultValue: ValueType;
-    private readonly validator: Array<IValidator<ValueType>> | IValidator<ValueType> | null;
+    private readonly _defaultValue: ValueType;
+    private readonly _validator: Array<IValidator<ValueType>> | IValidator<ValueType> | null = null;
 
     private _value: ValueType;
     get value(): ValueType {
@@ -20,34 +31,27 @@ export class FormControl<ValueType = string> implements IFormControl<ValueType> 
     }
     set value(newValue: ValueType) {
         this._value = newValue;
+        this.checkValue();
+        this._changed = !this.valueCompareFn(this._defaultValue, newValue);
         this._dirty = true;
-        this._changed = !this.valueCompareFn(this.defaultValue, newValue);
-        const invalidValidator = this.getFirstInvalidValidator();
-        if (invalidValidator === null) {
-            this._error = "";
-            this._valid = true;
-        } else {
-            this._error = invalidValidator.error;
-            this._valid = false;
-        }
     }
 
-    private _changed: boolean;
+    private _changed = false;
     get changed(): boolean {
         return this._changed;
     }
 
-    private _error: string;
+    private _error = "";
     get error(): string {
         return this._error;
     }
 
-    private _valid: boolean;
+    private _valid = false;
     get valid(): boolean {
         return this._valid;
     }
 
-    private _dirty: boolean;
+    private _dirty = false;
     get dirty(): boolean {
         return this._dirty;
     }
@@ -59,26 +63,37 @@ export class FormControl<ValueType = string> implements IFormControl<ValueType> 
         valueCompareFn: ((a: ValueType, b: ValueType) => boolean) | null = null,
     ) {
         this.name = name;
-        this.defaultValue = value;
-        this.validator = validator;
+        this._defaultValue = value;
+        this._validator = validator;
         if (valueCompareFn != null) {
             this.valueCompareFn = valueCompareFn;
         }
-        this.value = value;
-        this._dirty = false;
+        this._value = value;
+        this.checkValue();
     }
 
     private readonly valueCompareFn = function valueCompareFn(a: ValueType, b: ValueType): boolean {
         return a === b;
     };
 
+    private checkValue() {
+        const invalidValidator = this.getFirstInvalidValidator();
+        if (invalidValidator === null) {
+            this._error = "";
+            this._valid = true;
+        } else {
+            this._error = invalidValidator.error;
+            this._valid = false;
+        }
+    }
+
     private getFirstInvalidValidator(): IValidator<ValueType> | null {
-        if (this.validator === null) {
+        if (this._validator === null) {
             return null;
         }
 
         const validators: Array<IValidator<ValueType>> =
-            Array.isArray(this.validator) ? this.validator : [this.validator];
+            Array.isArray(this._validator) ? this._validator : [this._validator];
         const invalidValidators = validators.filter((validator: IValidator<ValueType>) => {
             const valid = validator.checkFn(this._value);
             return !valid;

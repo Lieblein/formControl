@@ -6,10 +6,7 @@ import "./page-main.pcss";
 
 interface IPageMainState {
     login: FormControl;
-}
-
-function hasNotNumber(value: string): boolean {
-    return !(new RegExp(/\d/).test(value));
+    password: FormControl;
 }
 
 export default class PageMain extends BemComponent<IBemProps, IPageMainState> {
@@ -20,11 +17,14 @@ export default class PageMain extends BemComponent<IBemProps, IPageMainState> {
             [
                 new RequiredValidator(),
                 new MinLengthValidator(3),
-                {
-                    name: "not-number",
-                    error: "Не должно быть цифр",
-                    checkFn: hasNotNumber,
-                },
+            ],
+        ),
+        password: new FormControl(
+            "password",
+            "",
+            [
+                new RequiredValidator(),
+                new MinLengthValidator(6),
             ],
         ),
     };
@@ -34,19 +34,32 @@ export default class PageMain extends BemComponent<IBemProps, IPageMainState> {
     }
 
     onChangeLogin = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const login = this.state.login;
+        const { login } = this.state;
         login.value = event.target.value;
         this.setState({ login });
     }
 
+    onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { password } = this.state;
+        password.value = event.target.value;
+        this.setState({ password });
+    }
+
     render() {
+        const { login, password } = this.state;
         return (
             <div className={ this.bemCn() }>
                 <Input
-                    className={ this.bemCn("login") }
+                    className={ this.bemCn("input") }
                     label="login"
-                    formControl={ this.state.login }
+                    formControl={ login }
                     onChange={ this.onChangeLogin }
+                />
+                <Input
+                    className={ this.bemCn("input") }
+                    label="password"
+                    formControl={ password }
+                    onChange={ this.onChangePassword }
                 />
             </div>
         );
