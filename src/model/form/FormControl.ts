@@ -1,6 +1,6 @@
 import { IValidator } from "./Validator";
 
-export interface IFormControl<ValueType = string> {
+export interface IFormControl<ValueType> {
     /** Унимальный ключ поля в пределах формы */
     name: string;
 
@@ -13,20 +13,14 @@ export interface IFormControl<ValueType = string> {
     /** Флаг, покзывающий, что value заполнено корректно */
     valid: boolean;
 
-    /** Флаг, покзывающий, что value не совпадает с изначальным значением value */
-    changed: boolean;
-
     /** Флаг, покзывающий, что value было изменено хотя бы 1 раз */
     dirty: boolean;
-
-    /** Метод, сбрасывающий изменения поля */
-    reset: () => void;
 }
 
-export class FormControl<ValueType = string> implements IFormControl<ValueType> {
+export class FormControl<ValueType> implements IFormControl<ValueType> {
     readonly name: string;
     private readonly _defaultValue: ValueType;
-    private readonly _validator: Array<IValidator<ValueType>> | IValidator<ValueType> | null = null;
+    private _validator: Array<IValidator<ValueType>> | IValidator<ValueType> | null = null;
 
     private _value: ValueType;
     get value(): ValueType {
@@ -78,6 +72,11 @@ export class FormControl<ValueType = string> implements IFormControl<ValueType> 
     reset() {
         this.value = this._defaultValue;
         this._dirty = false;
+    }
+
+    updateValidator(validator: Array<IValidator<ValueType>> | IValidator<ValueType> | null = null) {
+        this._validator = validator;
+        this.checkValue();
     }
 
     private readonly valueCompareFn = function valueCompareFn(a: ValueType, b: ValueType): boolean {

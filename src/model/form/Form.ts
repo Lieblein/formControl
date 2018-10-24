@@ -1,15 +1,13 @@
-import { IFormControl } from "./FormControl";
-import { IValidator } from "./validator";
+import { FormControl } from "./FormControl";
 
 export class Form {
-    private readonly controls = new Map</** name */ string, IFormControl<any>>();
+    private readonly controls = new Map</** name */ string, FormControl<any>>();
 
     get changed(): boolean {
         return Array.from(this.controls).some(([name, control]) => control.changed);
     }
 
     get valid(): boolean {
-        // TODO валидация зависимых полей
         return Array.from(this.controls).every(([name, control]) => control.valid);
     }
 
@@ -17,15 +15,27 @@ export class Form {
         return !this.changed || !this.valid;
     }
 
-    constructor(controls: IFormControl[]) {
+    get value(): {} {
+        const value = {};
+        this.controls.forEach((control) => value[control.name] = control.value);
+        return value;
+    }
+    set value(newValue: {}) {
+        Object.keys(newValue).forEach((controlName: string) => {
+            const control = this.getControl(controlName);
+            control.value = newValue[controlName];
+        });
+    }
+
+    constructor(controls: Array<FormControl<any>>) {
         controls.forEach((control) => this.setControl(control));
     }
 
-    setControl(control: IFormControl) {
+    setControl(control: FormControl<any>) {
         this.controls.set(control.name, control);
     }
 
-    getControl(name: string): IFormControl {
+    getControl(name: string): FormControl<any> {
         if (this.controls.has(name)) {
             return this.controls.get(name);
         } else {

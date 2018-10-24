@@ -5,7 +5,7 @@ import "./input.pcss";
 
 export interface IInputProps extends IBemProps {
     label?: string;
-    formControl: IFormControl;
+    formControl: IFormControl<string>;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
