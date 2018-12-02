@@ -82,7 +82,7 @@ export default class FormProfile extends BemComponent<IBemProps, IFormLoginState
             <form className={ this.bemCn() }>
                 <Input
                     className={ this.bemCn("form-group") }
-                    label="name"
+                    label="Имя"
                     formControl={ form.getControl("name") }
                     onChange={ this.onChange }
                 />
@@ -99,12 +99,12 @@ export default class FormProfile extends BemComponent<IBemProps, IFormLoginState
                         className={ this.bemCn("checkbox-label") }
                         htmlFor={ form.getControl("needAge").name }
                     >
-                        need age
+                        Нужен возраст
                     </label>
                 </div>
                 <Input
                     className={ this.bemCn("form-group") }
-                    label="age"
+                    label="Возраст"
                     formControl={ form.getControl("age") }
                     onChange={ this.onChange }
                 />
@@ -114,7 +114,7 @@ export default class FormProfile extends BemComponent<IBemProps, IFormLoginState
                     disabled={ form.disabled }
                     onClick={ this.onSubmit }
                 >
-                    Submit
+                    Отправить
                 </button>
             </form>
         );

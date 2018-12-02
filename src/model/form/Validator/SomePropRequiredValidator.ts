@@ -6,7 +6,7 @@ export default class SomePropRequiredValidator implements IValidator<object> {
     }
 
     get error(): string {
-        return "Заполните хотя бы одно поле";
+        return "Заполните хотя бы 1 поле";
     }
 
     checkFn(value: object): boolean {

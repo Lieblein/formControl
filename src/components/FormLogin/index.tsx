@@ -4,7 +4,6 @@ import { Form, FormControl, RequiredValidator, MinLengthValidator } from "../../
 import Input from "../Input";
 import "../../assets/styles/button.pcss";
 import "./form-login.pcss";
-import { string } from "prop-types";
 
 interface IFormValue {
     login: string;
@@ -64,13 +63,13 @@ export default class FormLogin extends BemComponent<IBemProps, IFormLoginState> 
             <form className={ this.bemCn() }>
                 <Input
                     className={ this.bemCn("input") }
-                    label="login"
+                    label="Логин"
                     formControl={ form.getControl("login") }
                     onChange={ this.onChange }
                 />
                 <Input
                     className={ this.bemCn("input") }
-                    label="password"
+                    label="Пароль"
                     formControl={ form.getControl("password") }
                     onChange={ this.onChange }
                 />
@@ -80,7 +79,7 @@ export default class FormLogin extends BemComponent<IBemProps, IFormLoginState> 
                     disabled={ form.disabled }
                     onClick={ this.onSubmit }
                 >
-                    Submit
+                    Отправить
                 </button>
             </form>
         );
