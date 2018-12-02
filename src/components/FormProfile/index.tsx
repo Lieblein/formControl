@@ -5,15 +5,21 @@ import Input from "../Input";
 import "../../assets/styles/button.pcss";
 import "./form-profile.pcss";
 
+interface IFormValue {
+    name: string;
+    needAge: boolean;
+    age: string;
+}
+
 interface IFormLoginState {
-    form: Form;
+    form: Form<IFormValue>;
 }
 
 const AGE_VALIDATOR = new RequiredValidator();
 
 export default class FormProfile extends BemComponent<IBemProps, IFormLoginState> {
     state = {
-        form: new Form([
+        form: new Form<IFormValue>([
             new FormControl(
                 "name",
                 "",
@@ -25,9 +31,6 @@ export default class FormProfile extends BemComponent<IBemProps, IFormLoginState
             new FormControl(
                 "needAge",
                 false,
-                [
-                    new RequiredValidator(),
-                ],
             ),
             new FormControl(
                 "age",
@@ -56,13 +59,19 @@ export default class FormProfile extends BemComponent<IBemProps, IFormLoginState
         control.value = checked;
         form.setControl(control);
         const ageControl = form.getControl("age");
-        ageControl.updateValidator(checked ? AGE_VALIDATOR : null);
+        if (checked) {
+            ageControl.setValidator(AGE_VALIDATOR);
+        } else {
+            ageControl.deleteValidator(AGE_VALIDATOR.name);
+        }
+        form.setControl(ageControl);
         this.forceUpdate();
     }
 
     onSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        alert("submited");
+        /* tslint:disable-next-line:no-console */
+        console.dir(this.state.form.value);
         this.state.form.reset();
         this.forceUpdate();
     }

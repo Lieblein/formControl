@@ -1,9 +1,11 @@
-import { IValidator } from "./";
+import { IValidator, ValidatorName } from "./";
 
 export default class RequiredValidator<ValueType = string> implements IValidator<ValueType> {
-    name: "required";
+    get name() {
+        return ValidatorName.Required;
+    }
 
-    get error(): string {
+    get error() {
         return "Заполните поле";
     }
 

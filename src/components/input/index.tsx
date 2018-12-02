@@ -49,9 +49,9 @@ export default class Input extends BemComponent<IInputProps> {
                     onChange={ onChange }
                 />
                 {
-                    error !== "" && !valid && dirty &&
+                    error !== null && !valid && dirty &&
                         <div className={ this.bemCn("error") }>
-                            { error }
+                            { error.text }
                         </div>
                 }
             </div>

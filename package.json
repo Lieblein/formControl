@@ -33,6 +33,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/bem-cn": "^2.1.1",
+    "@types/jest": "^23.3.7",
     "@types/lodash": "^4.14.116",
     "@types/node": "^10.9.4",
     "@types/react": "^16.4.14",
@@ -90,6 +91,7 @@
     "style-loader": "^0.23.0",
     "stylelint": "^7.7.0",
     "svg-sprite-loader": "^4.1.2",
+    "ts-jest": "^23.10.4",
     "tslint": "^5.11.0",
     "tslint-react": "^3.6.0",
     "typescript": "^3.0.3",

@@ -4,14 +4,20 @@ import { Form, FormControl, RequiredValidator, MinLengthValidator } from "../../
 import Input from "../Input";
 import "../../assets/styles/button.pcss";
 import "./form-login.pcss";
+import { string } from "prop-types";
+
+interface IFormValue {
+    login: string;
+    password: string;
+}
 
 interface IFormLoginState {
-    form: Form;
+    form: Form<IFormValue>;
 }
 
 export default class FormLogin extends BemComponent<IBemProps, IFormLoginState> {
     state = {
-        form: new Form([
+        form: new Form<IFormValue>([
             new FormControl(
                 "login",
                 "",
@@ -46,7 +52,8 @@ export default class FormLogin extends BemComponent<IBemProps, IFormLoginState> 
 
     onSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        alert("submited");
+        /* tslint:disable-next-line:no-console */
+        console.dir(this.state.form.value);
         this.state.form.reset();
         this.forceUpdate();
     }
