@@ -13,7 +13,6 @@ const webpackConfig = function (options) {
     return {
         mode: isProd ? 'production' : 'development',
         entry: {
-            polyfills: ['babel-polyfill'],
             app: [helpers.root('src', 'index.tsx')]
         },
         output: {

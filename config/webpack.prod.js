@@ -1,16 +1,11 @@
 const webpackMerge = require('webpack-merge');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const helpers = require('./helpers');
-
-const ENV = 'production';
-
 const getConfig = require('./webpack.common.js');
-// uncomment if you want to see configs merge result
-// const helpers = require('./helpers');
-
+const ENV = 'production';
 const ASSETS_PATH = './assets/';
 
 const commonConfig = getConfig({
@@ -27,7 +22,7 @@ const config = webpackMerge.smart(commonConfig, {
                     {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
-                            publicPath: ASSETS_PATH
+                            publicPath: './'
                         }
                     },
                     {
@@ -103,20 +98,13 @@ const config = webpackMerge.smart(commonConfig, {
     ],
     optimization: {
         minimizer: [
-            new UglifyJsPlugin({
-                parallel: true,
-                uglifyOptions: {
-                    output: {
-                        beautify: false
-                    }
-                }
+            new TerserPlugin({
+                cache: true,
+                parallel: true
             }),
             new OptimizeCSSAssetsPlugin({})
         ]
     }
 });
-
-// uncomment if you want to see configs merge result
-// helpers.writeJSON(config);
 
 module.exports = config;
