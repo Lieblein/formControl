@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const helpers = require('./helpers');
 
@@ -109,14 +108,7 @@ const webpackConfig = function (options) {
             new HtmlWebpackPlugin({
                 inject: 'body',
                 template: 'src/stub.html'
-            }),
-            new CopyWebpackPlugin([
-                {
-                    from: helpers.root('src', 'assets', 'static'),
-                    to: helpers.root('build', 'static'),
-                    flatten: true
-                }
-            ])
+            })
             // uncomment if you want to load only `moment/locale/ru.js`
             // new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru/)
         ]

@@ -36,7 +36,6 @@
     "autoprefixer": "^9.1.5",
     "awesome-typescript-loader": "^5.2.1",
     "compression-webpack-plugin": "^0.3.2",
-    "copy-webpack-plugin": "^4.5.2",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
     "enzyme": "^3.5.1",

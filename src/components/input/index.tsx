@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { BemComponent, IBemProps } from "../../model/bem-component";
 import { IFormControl } from "../../model/form";
 import "./input.pcss";

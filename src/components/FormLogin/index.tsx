@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { BemComponent, IBemProps } from "../../model/bem-component";
 import { Form, FormControl, RequiredValidator, MinLengthValidator } from "../../model/form";
 import Input from "../Input";

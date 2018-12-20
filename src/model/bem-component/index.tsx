@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as bemCn from "bem-cn";
-import get from "lodash/get";
+import * as get from "lodash/get";
 
 bemCn.setup({
     el: "__",

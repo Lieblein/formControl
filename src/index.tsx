@@ -14,5 +14,5 @@ const renderApplication = () => {
 renderApplication();
 
 if (module["hot"]) {
-    module["hot"].accept("./components/app", () => renderApplication());
+    module["hot"].accept("./components/PageMain", () => renderApplication());
 }
