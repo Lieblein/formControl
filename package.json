@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development node start.js",
-    "precommit": "lint-staged",
+    "precommit": "yarn test && lint-staged",
     "test": "jest --silent",
     "test-log": "jest",
     "lint": "yarn run lint-ts && yarn run lint-pcss",
